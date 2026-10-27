@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified">
+
+    <xs:simpleType name="PaperType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="newspaper"/>
+            <xs:enumeration value="magazine"/>
+            <xs:enumeration value="booklet"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="PageCount">
+        <xs:restriction base="xs:positiveInteger">
+            <xs:minInclusive value="1"/>
+            <xs:maxInclusive value="1000"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="SubscriptionIndex">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[0-9]{5}"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="PaperChars">
+        <xs:sequence>
+            <xs:element name="Colored" type="xs:boolean"/>
+            <xs:element name="PageCount" type="PageCount"/>
+            <xs:element name="Glossy" type="xs:boolean" minOccurs="0"/>
+            <xs:element name="SubscriptionIndex" type="SubscriptionIndex" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="Paper">
+        <xs:sequence>
+            <xs:element name="Title" type="xs:string"/>
+            <xs:element name="Type" type="PaperType"/>
+            <xs:element name="Monthly" type="xs:boolean"/>
+            <xs:element name="Chars" type="PaperChars"/>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:ID" use="required"/>
+    </xs:complexType>
+
+    <xs:element name="Papers">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Paper" type="Paper" minOccurs="1" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>

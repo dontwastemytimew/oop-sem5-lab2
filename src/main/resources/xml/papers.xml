@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Papers xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="papers.xsd">
+
+    <Paper id="p1">
+        <Title>Урядовий кур'єр</Title>
+        <Type>newspaper</Type>
+        <Monthly>false</Monthly>
+        <Chars>
+            <Colored>false</Colored>
+            <PageCount>16</PageCount>
+            <SubscriptionIndex>60050</SubscriptionIndex>
+        </Chars>
+    </Paper>
+
+    <Paper id="p2">
+        <Title>Український тиждень</Title>
+        <Type>magazine</Type>
+        <Monthly>false</Monthly>
+        <Chars>
+            <Colored>true</Colored>
+            <PageCount>64</PageCount>
+            <Glossy>true</Glossy>
+            <SubscriptionIndex>23415</SubscriptionIndex>
+        </Chars>
+    </Paper>
+
+    <Paper id="p3">
+        <Title>Рекламний буклет мережі АТБ</Title>
+        <Type>booklet</Type>
+        <Monthly>true</Monthly>
+        <Chars>
+            <Colored>true</Colored>
+            <PageCount>8</PageCount>
+            <Glossy>true</Glossy>
+        </Chars>
+    </Paper>
+
+    <Paper id="p4">
+        <Title>Голос України</Title>
+        <Type>newspaper</Type>
+        <Monthly>false</Monthly>
+        <Chars>
+            <Colored>true</Colored>
+            <PageCount>32</PageCount>
+            <SubscriptionIndex>74321</SubscriptionIndex>
+        </Chars>
+    </Paper>
+
+    <Paper id="p5">
+        <Title>Forbes Ukraine</Title>
+        <Type>magazine</Type>
+        <Monthly>true</Monthly>
+        <Chars>
+            <Colored>true</Colored>
+            <PageCount>96</PageCount>
+            <Glossy>true</Glossy>
+            <SubscriptionIndex>40123</SubscriptionIndex>
+        </Chars>
+    </Paper>
+
+    <Paper id="p6">
+        <Title>Інформаційний буклет університету</Title>
+        <Type>booklet</Type>
+        <Monthly>false</Monthly>
+        <Chars>
+            <Colored>false</Colored>
+            <PageCount>4</PageCount>
+            <Glossy>false</Glossy>
+        </Chars>
+    </Paper>
+
+</Papers>

@@ -3,6 +3,7 @@ package com.periodicals.parser;
 final class PaperTags {
 
     static final String PAPER = "Paper";
+    static final String CHARS = "Chars";
     static final String ID = "id";
     static final String TITLE = "Title";
     static final String TYPE = "Type";

@@ -7,9 +7,11 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+import org.xml.sax.helpers.DefaultHandler;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.DocumentBuilder;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -24,9 +26,9 @@ public class DomPaperParser implements PaperParser {
     @Override
     public List<Paper> parse(InputStream xml) throws PaperParseException {
         try {
-            Document document = DocumentBuilderFactory.newInstance()
-                    .newDocumentBuilder()
-                    .parse(xml);
+            DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+            builder.setErrorHandler(new DefaultHandler());
+            Document document = builder.parse(xml);
             NodeList nodes = document.getElementsByTagName(PaperTags.PAPER);
             List<Paper> papers = new ArrayList<>();
             for (int i = 0; i < nodes.getLength(); i++) {

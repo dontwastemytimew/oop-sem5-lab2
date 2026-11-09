@@ -4,14 +4,14 @@ import java.util.Objects;
 import java.util.Optional;
 
 /**
- * Characteristics of a publication. Glossiness and subscription index
- * are absent for the types they do not apply to.
+ * Characteristics of a publication. The subscription index is absent
+ * for the types it does not apply to.
  */
 public final class PaperChars {
 
     private final boolean colored;
     private final int pageCount;
-    private final Boolean glossy;
+    private final boolean glossy;
     private final String subscriptionIndex;
 
     private PaperChars(Builder builder) {
@@ -33,8 +33,8 @@ public final class PaperChars {
         return pageCount;
     }
 
-    public Optional<Boolean> getGlossy() {
-        return Optional.ofNullable(glossy);
+    public boolean isGlossy() {
+        return glossy;
     }
 
     public Optional<String> getSubscriptionIndex() {
@@ -45,7 +45,7 @@ public final class PaperChars {
 
         private boolean colored;
         private int pageCount;
-        private Boolean glossy;
+        private boolean glossy;
         private String subscriptionIndex;
 
         private Builder() {
@@ -87,7 +87,7 @@ public final class PaperChars {
         PaperChars that = (PaperChars) o;
         return colored == that.colored
                 && pageCount == that.pageCount
-                && Objects.equals(glossy, that.glossy)
+                && glossy == that.glossy
                 && Objects.equals(subscriptionIndex, that.subscriptionIndex);
     }
 

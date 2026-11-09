@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -42,6 +41,7 @@ class PaperParsersTest {
                 <Chars>
                     <Colored>false</Colored>
                     <PageCount>32</PageCount>
+                    <Glossy>false</Glossy>
                     <SubscriptionIndex>74321</SubscriptionIndex>
                 </Chars>
             </Paper>
@@ -81,11 +81,12 @@ class PaperParsersTest {
 
     @ParameterizedTest
     @MethodSource("parsers")
-    void leavesOptionalFieldsEmptyWhenAbsent(PaperParser parser) throws PaperParseException {
-        Paper paper = parser.parse(xml(NEWSPAPER)).get(0);
+    void leavesSubscriptionIndexEmptyWhenAbsent(PaperParser parser) throws PaperParseException {
+        String withoutIndex = MAGAZINE.replace("<SubscriptionIndex>40123</SubscriptionIndex>", "");
 
-        assertTrue(paper.getChars().getGlossy().isEmpty());
-        assertEquals(Optional.of("74321"), paper.getChars().getSubscriptionIndex());
+        Paper paper = parser.parse(xml(withoutIndex)).get(0);
+
+        assertTrue(paper.getChars().getSubscriptionIndex().isEmpty());
     }
 
     @ParameterizedTest
@@ -133,5 +134,11 @@ class PaperParsersTest {
         };
 
         assertThrows(PaperParseException.class, () -> parser.parse(broken));
+    }
+
+    @ParameterizedTest
+    @MethodSource("parsers")
+    void rejectsGlossyNewspaper(PaperParser parser) {
+        assertRejected(parser, NEWSPAPER.replace("<Glossy>false</Glossy>", "<Glossy>true</Glossy>"));
     }
 }

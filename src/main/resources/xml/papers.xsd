@@ -27,7 +27,7 @@
         <xs:sequence>
             <xs:element name="Colored" type="xs:boolean"/>
             <xs:element name="PageCount" type="PageCount"/>
-            <xs:element name="Glossy" type="xs:boolean" minOccurs="0"/>
+            <xs:element name="Glossy" type="xs:boolean"/>
             <xs:element name="SubscriptionIndex" type="SubscriptionIndex" minOccurs="0"/>
         </xs:sequence>
     </xs:complexType>

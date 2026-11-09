@@ -26,16 +26,22 @@ final class PaperFactory {
 
     static Paper create(String id, Map<String, String> fields) throws PaperParseException {
         try {
+            PaperType type = PaperType.fromXmlValue(required(fields, TYPE));
+            boolean glossy = Boolean.parseBoolean(required(fields, GLOSSY));
+            if (type == PaperType.NEWSPAPER && glossy) {
+                throw new PaperParseException("Newspaper cannot be glossy: " + id);
+            }
+
             PaperChars.Builder chars = PaperChars.builder()
                     .colored(Boolean.parseBoolean(required(fields, COLORED)))
-                    .pageCount(Integer.parseInt(required(fields, PAGE_COUNT)));
-            optional(fields, GLOSSY).ifPresent(value -> chars.glossy(Boolean.parseBoolean(value)));
+                    .pageCount(Integer.parseInt(required(fields, PAGE_COUNT)))
+                    .glossy(glossy);
             optional(fields, SUBSCRIPTION_INDEX).ifPresent(chars::subscriptionIndex);
 
             return Paper.builder()
                     .id(id)
                     .title(required(fields, TITLE))
-                    .type(PaperType.fromXmlValue(required(fields, TYPE)))
+                    .type(type)
                     .monthly(Boolean.parseBoolean(required(fields, MONTHLY)))
                     .chars(chars.build())
                     .build();

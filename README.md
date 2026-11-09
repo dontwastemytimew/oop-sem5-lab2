@@ -75,8 +75,8 @@ src/main/resources
 * `id` — обов'язковий атрибут типу `ID`
 * `Type` — `newspaper`, `magazine` або `booklet`
 * `PageCount` — ціле число від 1 до 1000
+* `Glossy` — обов'язковий; для газет може бути лише `false`
 * `SubscriptionIndex` — необов'язковий, рівно 5 цифр
-* `Glossy` — необов'язковий
 
 Результат XSL-перетворення записується у `output/papers-by-type.xml`, повідомлення програми — у консоль і файл `logs/app.log`.
 

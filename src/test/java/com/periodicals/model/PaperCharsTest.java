@@ -17,10 +17,13 @@ class PaperCharsTest {
     }
 
     @Test
-    void optionalFieldsAreEmptyWhenNotSet() {
-        PaperChars chars = PaperChars.builder().colored(false).pageCount(16).build();
+    void subscriptionIndexIsEmptyWhenNotSet() {
+        PaperChars chars = PaperChars.builder()
+                .colored(false)
+                .pageCount(16)
+                .glossy(false)
+                .build();
 
-        assertTrue(chars.getGlossy().isEmpty());
         assertTrue(chars.getSubscriptionIndex().isEmpty());
     }
 

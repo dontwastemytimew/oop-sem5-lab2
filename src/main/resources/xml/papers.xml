@@ -9,6 +9,7 @@
         <Chars>
             <Colored>false</Colored>
             <PageCount>16</PageCount>
+            <Glossy>false</Glossy>
             <SubscriptionIndex>60050</SubscriptionIndex>
         </Chars>
     </Paper>
@@ -43,6 +44,7 @@
         <Chars>
             <Colored>true</Colored>
             <PageCount>32</PageCount>
+            <Glossy>false</Glossy>
             <SubscriptionIndex>74321</SubscriptionIndex>
         </Chars>
     </Paper>

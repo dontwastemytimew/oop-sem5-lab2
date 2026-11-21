@@ -40,7 +40,7 @@
 src/main/java/com/periodicals
 ├── Main.java                  точка входу
 ├── model                      видання (Paper, PaperChars, PaperType)
-├── parser                     PaperParser та реалізації SAX, DOM, StAX
+├── parser                     PaperParser, AbstractPaperParser, PaperHandler та реалізації SAX, DOM, StAX
 ├── service                    сортування видань
 └── xml                        валідація за XSD та XSL-перетворення
 

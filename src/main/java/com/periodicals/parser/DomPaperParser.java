@@ -1,56 +1,45 @@
 package com.periodicals.parser;
 
-import com.periodicals.model.Paper;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
+import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.DocumentBuilder;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
-public class DomPaperParser implements PaperParser {
+public class DomPaperParser extends AbstractPaperParser {
 
-    private static final Logger LOGGER = LogManager.getLogger(DomPaperParser.class);
+    public DomPaperParser() {
+        super("DOM");
+    }
 
     @Override
-    public List<Paper> parse(InputStream xml) throws PaperParseException {
-        try {
-            DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-            builder.setErrorHandler(new DefaultHandler());
-            Document document = builder.parse(xml);
-            NodeList nodes = document.getElementsByTagName(PaperTags.PAPER);
-            List<Paper> papers = new ArrayList<>();
-            for (int i = 0; i < nodes.getLength(); i++) {
-                papers.add(readPaper((Element) nodes.item(i)));
-            }
-            LOGGER.info("DOM parser read {} papers", papers.size());
-            return papers;
-        } catch (ParserConfigurationException | SAXException | IOException e) {
-            throw new PaperParseException("Cannot parse XML with DOM", e);
+    protected void read(InputStream xml, PaperHandler handler)
+            throws ParserConfigurationException, SAXException, IOException {
+        DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+        builder.setErrorHandler(new DefaultHandler());
+        Document document = builder.parse(xml);
+        NodeList papers = document.getElementsByTagName(PaperTags.PAPER);
+        for (int i = 0; i < papers.getLength(); i++) {
+            readPaper((Element) papers.item(i), handler);
         }
     }
 
-    private Paper readPaper(Element paperElement) throws PaperParseException {
-        Map<String, String> fields = new HashMap<>();
-        NodeList descendants = paperElement.getElementsByTagName("*");
+    private void readPaper(Element paper, PaperHandler handler) {
+        handler.startPaper(paper.getAttribute(PaperTags.ID));
+        NodeList descendants = paper.getElementsByTagName("*");
         for (int i = 0; i < descendants.getLength(); i++) {
             Element element = (Element) descendants.item(i);
             boolean isLeaf = element.getElementsByTagName("*").getLength() == 0;
             if (isLeaf) {
-                fields.put(element.getTagName(), element.getTextContent().trim());
+                handler.setField(element.getTagName(), element.getTextContent().trim());
             }
         }
-        return PaperFactory.create(paperElement.getAttribute(PaperTags.ID), fields);
+        handler.endPaper();
     }
 }
